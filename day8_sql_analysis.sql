@@ -1,6 +1,12 @@
-CREATE DATABASE retail_db;
+-- Day 8 - SQL for Data Analysis
 
-USE retail_db;
+-- Create Database
+
+CREATE DATABASE RetailDB;
+USE RetailDB;
+
+-- Create Tables
+
 
 CREATE TABLE Customers (
     CustomerID INT PRIMARY KEY,
@@ -8,141 +14,247 @@ CREATE TABLE Customers (
     City VARCHAR(50)
 );
 
-CREATE TABLE Sales (
-    SaleID INT PRIMARY KEY,
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
     CustomerID INT,
     Product VARCHAR(100),
     Category VARCHAR(50),
     Quantity INT,
     Price DECIMAL(10,2),
-    SaleDate DATE,
-    FOREIGN KEY(CustomerID)
-    REFERENCES Customers(CustomerID)
+    OrderDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
+
+
+-- Insert Sample Data
 
 
 INSERT INTO Customers VALUES
-(1,'Alice','Bangalore'),
-(2,'Bob','Mysore'),
-(3,'Charlie','Hubli'),
-(4,'David','Belgaum'),
-(5,'Eva','Mangalore');
+(1,'Ravi','Bangalore'),
+(2,'Sneha','Mysore'),
+(3,'Amit','Delhi'),
+(4,'Priya','Mumbai'),
+(5,'Rahul','Pune'),
+(6,'Neha','Hyderabad'),
+(7,'Kiran','Chennai'),
+(8,'Anjali','Kolkata'),
+(9,'Arjun','Goa'),
+(10,'Meena','Bangalore');
+
+INSERT INTO Orders VALUES
+(101,1,'Laptop','Electronics',1,65000,'2026-01-10'),
+(102,2,'Mobile','Electronics',2,25000,'2026-01-15'),
+(103,3,'Chair','Furniture',4,3000,'2026-02-01'),
+(104,4,'Table','Furniture',2,8000,'2026-02-10'),
+(105,5,'Headphones','Electronics',3,2000,'2026-02-15'),
+(106,1,'Monitor','Electronics',2,12000,'2026-03-01'),
+(107,6,'Keyboard','Accessories',5,1500,'2026-03-05'),
+(108,7,'Mouse','Accessories',6,800,'2026-03-08'),
+(109,8,'Printer','Electronics',1,15000,'2026-03-12'),
+(110,9,'Sofa','Furniture',1,35000,'2026-03-15'),
+(111,10,'Speaker','Electronics',2,4500,'2026-03-20'),
+(112,5,'Smart Watch','Electronics',1,12000,'2026-03-22');
 
 
-INSERT INTO Sales VALUES
-(101,1,'Laptop','Electronics',2,50000,'2025-01-10'),
-(102,2,'Phone','Electronics',1,30000,'2025-01-15'),
-(103,1,'Chair','Furniture',4,2500,'2025-02-01'),
-(104,3,'Table','Furniture',2,7000,'2025-02-05'),
-(105,4,'Headphones','Electronics',3,2000,'2025-02-10'),
-(106,5,'Keyboard','Electronics',5,1500,'2025-03-01'),
-(107,2,'Monitor','Electronics',2,12000,'2025-03-15'),
-(108,3,'Sofa','Furniture',1,25000,'2025-03-18'),
-(109,4,'Mouse','Electronics',6,800,'2025-04-01'),
-(110,5,'Cupboard','Furniture',1,18000,'2025-04-10');
+-- Main Task Queries
 
+
+-- Query 1: Display all customers
+SELECT * FROM Customers;
+
+-- Query 2: Find customers from Bangalore
+SELECT CustomerName, City
+FROM Customers
+WHERE City = 'Bangalore';
+
+-- Query 3: Show top 5 highest priced orders
 SELECT *
-FROM Sales;
-
-SELECT *
-FROM Sales
-ORDER BY Price DESC;
-
-SELECT *
-FROM Sales
+FROM Orders
 ORDER BY Price DESC
 LIMIT 5;
 
+-- Query 4: Find category-wise total sales
 SELECT
-Category,
-SUM(Quantity*Price) AS TotalSales
-FROM Sales
+    Category,
+    SUM(Price * Quantity) AS TotalSales
+FROM Orders
 GROUP BY Category;
 
+-- Query 5: Show categories with total sales greater than 30000
 SELECT
-AVG(Price) AS AveragePrice
-FROM Sales;
-
-SELECT
-CustomerID,
-SUM(Quantity*Price) AS TotalSpent
-FROM Sales
-GROUP BY CustomerID
-HAVING TotalSpent>20000;
-
-SELECT
-Customers.CustomerName,
-Sales.Product,
-Sales.Price
-FROM Customers
-INNER JOIN Sales
-ON Customers.CustomerID=Sales.CustomerID;
-
-SELECT
-Product,
-Price,
-
-CASE
-WHEN Price>=30000 THEN 'Premium'
-WHEN Price>=10000 THEN 'Medium'
-ELSE 'Budget'
-END AS ProductCategory
-
-FROM Sales;
-
-SELECT *
-FROM Sales
-WHERE Price>(
-SELECT AVG(Price)
-FROM Sales
-);
-
-SELECT Product,Price
-FROM Sales
-WHERE Price>5000;
-
-SELECT *
-FROM Sales
-ORDER BY Quantity DESC;
-
-SELECT COUNT(*) AS TotalOrders
-FROM Sales;
-
-SELECT SUM(Quantity*Price)
-FROM Sales;
-
-SELECT Category,
-AVG(Price)
-FROM Sales
-GROUP BY Category;
-
-SELECT
-CustomerName,
-Product
-FROM Customers
-JOIN Sales
-ON Customers.CustomerID=Sales.CustomerID;
-
-SELECT
-Category,
-SUM(Quantity)
-FROM Sales
+    Category,
+    SUM(Price * Quantity) AS TotalSales
+FROM Orders
 GROUP BY Category
-HAVING SUM(Quantity)>5;
+HAVING SUM(Price * Quantity) > 30000;
 
+-- Query 6: Find total purchase made by each customer
+SELECT
+    c.CustomerName,
+    SUM(o.Price * o.Quantity) AS TotalPurchase
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerName
+ORDER BY TotalPurchase DESC;
+
+-- Query 7: Show monthly sales
+SELECT
+    MONTH(OrderDate) AS Month,
+    SUM(Price * Quantity) AS MonthlySales
+FROM Orders
+GROUP BY MONTH(OrderDate);
+
+-- Query 8: Categorize products using CASE
+SELECT
+    Product,
+    Price,
+    CASE
+        WHEN Price >= 30000 THEN 'Premium'
+        WHEN Price >= 10000 THEN 'Standard'
+        ELSE 'Budget'
+    END AS ProductCategory
+FROM Orders;
+
+-- Query 9: Find orders above average price
 SELECT *
-FROM Sales
-WHERE Quantity>(
-SELECT AVG(Quantity)
-FROM Sales
+FROM Orders
+WHERE Price >
+(
+    SELECT AVG(Price)
+    FROM Orders
 );
 
--- --------------------------------
--- Insights
--- --------------------------------
+-- Query 10: Display customer and order details
+SELECT
+    c.CustomerName,
+    c.City,
+    o.Product,
+    o.Category,
+    o.Quantity,
+    o.Price
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID;
 
--- 1. Electronics generated the highest total sales.
--- 2. Alice is one of the highest spending customers.
--- 3. Premium products contribute most revenue.
--- 4. Furniture has fewer sales but higher average prices.
--- 5. Several products are priced above the average, indicating premium offerings.
+
+-- Supporting Exercises
+
+
+-- Exercise 1: Select specific columns with WHERE
+SELECT CustomerName, City
+FROM Customers
+WHERE City = 'Bangalore';
+
+-- Exercise 2: Sort results and limit to top 5
+SELECT Product, Price
+FROM Orders
+ORDER BY Price DESC
+LIMIT 5;
+
+-- Exercise 3: COUNT, SUM and AVG with GROUP BY
+SELECT
+    Category,
+    COUNT(*) AS TotalOrders,
+    SUM(Price * Quantity) AS TotalSales,
+    AVG(Price) AS AveragePrice
+FROM Orders
+GROUP BY Category;
+
+-- Exercise 4: INNER JOIN
+SELECT
+    c.CustomerName,
+    o.Product,
+    o.Price
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID;
+
+-- LEFT JOIN
+SELECT
+    c.CustomerName,
+    o.Product,
+    o.Price
+FROM Customers c
+LEFT JOIN Orders o
+ON c.CustomerID = o.CustomerID;
+
+-- RIGHT JOIN
+SELECT
+    c.CustomerName,
+    o.Product,
+    o.Price
+FROM Customers c
+RIGHT JOIN Orders o
+ON c.CustomerID = o.CustomerID;
+
+-- Exercise 5: HAVING clause
+SELECT
+    Category,
+    SUM(Price * Quantity) AS TotalSales
+FROM Orders
+GROUP BY Category
+HAVING SUM(Price * Quantity) > 30000;
+
+-- Exercise 6: Subquery
+SELECT *
+FROM Orders
+WHERE Price >
+(
+    SELECT AVG(Price)
+    FROM Orders
+);
+
+
+-- Additional Practice
+
+
+-- AND operator
+SELECT *
+FROM Orders
+WHERE Category = 'Electronics'
+AND Price > 10000;
+
+-- OR operator
+SELECT *
+FROM Customers
+WHERE City = 'Delhi'
+OR City = 'Mumbai';
+
+-- IN operator
+SELECT *
+FROM Customers
+WHERE City IN ('Bangalore','Pune','Goa');
+
+-- BETWEEN operator
+SELECT *
+FROM Orders
+WHERE Price BETWEEN 5000 AND 30000;
+
+-- LIKE operator
+SELECT *
+FROM Customers
+WHERE CustomerName LIKE 'R%';
+
+-- MIN and MAX
+SELECT
+    MIN(Price) AS LowestPrice,
+    MAX(Price) AS HighestPrice
+FROM Orders;
+
+-- Alias example
+SELECT
+    c.CustomerName AS Customer,
+    o.Product AS ProductName,
+    o.Price AS Amount
+FROM Customers c
+INNER JOIN Orders o
+ON c.CustomerID = o.CustomerID;
+
+-- INSIGHTS SUMMARY
+
+-- 1. Electronics category generated the highest total sales.
+-- 2. Ravi is the top customer based on total purchase amount.
+-- 3. March recorded the highest monthly sales.
+-- 4. Premium products contributed the highest revenue.
+-- 5. Categories with higher sales can be prioritized for future promotions.
