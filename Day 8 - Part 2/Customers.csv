@@ -1,0 +1,61 @@
+CustomerID,CustomerName,Region,Segment,JoinDate
+1,Kiara Reddy,South,Consumer,2022-07-31
+2,Divya Patel,Central,Consumer,2023-06-20
+3,Ishaan Das,East,Consumer,2022-06-17
+4,Reyansh Reddy,North,Corporate,2023-05-28
+5,Diya Patel,East,Corporate,2023-03-21
+6,Isha Gupta,North,Home Office,2022-04-23
+7,Pooja Sharma,East,Consumer,2023-04-08
+8,Reyansh Reddy,South,Consumer,2022-07-15
+9,Ishaan Nair,North,Consumer,2023-02-05
+10,Priya Patel,East,Consumer,2023-03-25
+11,Sanjay Patel,Central,Corporate,2023-10-24
+12,Arjun Nair,South,Consumer,2022-08-08
+13,Vivaan Nair,West,Consumer,2022-02-03
+14,Pooja Das,South,Consumer,2024-06-14
+15,Aditya Nair,East,Corporate,2023-09-24
+16,Vihaan Sharma,Central,Consumer,2024-01-16
+17,Rohan Nair,Central,Consumer,2024-04-07
+18,Vihaan Sharma,Central,Corporate,2023-04-20
+19,Deepak Khan,West,Consumer,2023-03-11
+20,Krishna Nair,Central,Consumer,2024-03-08
+21,Ishaan Khan,Central,Corporate,2023-12-23
+22,Ananya Gupta,Central,Consumer,2022-06-19
+23,Sanjay Sharma,Central,Home Office,2024-01-09
+24,Isha Khan,North,Corporate,2022-04-17
+25,Aadhya Reddy,South,Home Office,2022-08-23
+26,Meera Gupta,South,Home Office,2023-09-10
+27,Ishaan Khan,South,Corporate,2022-09-18
+28,Pooja Das,West,Consumer,2022-08-14
+29,Naveen Gupta,West,Corporate,2024-03-30
+30,Divya Patel,South,Consumer,2024-05-27
+31,Arjun Patel,East,Consumer,2024-03-22
+32,Pooja Iyer,Central,Home Office,2022-02-05
+33,Myra Sharma,South,Corporate,2023-09-21
+34,Pooja Das,East,Corporate,2022-04-06
+35,Saanvi Patel,East,Corporate,2022-09-27
+36,Naveen Verma,North,Home Office,2023-05-13
+37,Aadhya Verma,West,Corporate,2023-07-31
+38,Myra Reddy,East,Home Office,2022-01-09
+39,Divya Verma,Central,Consumer,2024-02-06
+40,Tara Khan,East,Corporate,2024-01-24
+41,Kiara Sharma,East,Corporate,2023-11-20
+42,Aarav Das,North,Consumer,2023-10-02
+43,Diya Gupta,North,Corporate,2024-05-24
+44,Aarav Singh,Central,Consumer,2022-12-30
+45,Sanjay Verma,East,Consumer,2024-01-06
+46,Krishna Iyer,North,Home Office,2023-10-01
+47,Myra Nair,South,Consumer,2022-03-09
+48,Krishna Verma,East,Corporate,2022-11-28
+49,Pooja Reddy,West,Consumer,2024-05-12
+50,Aadhya Sharma,South,Consumer,2023-01-16
+51,Diya Verma,North,Home Office,2024-05-15
+52,Kiara Khan,North,Consumer,2024-02-20
+53,Arjun Patel,Central,Consumer,2022-10-02
+54,Sneha Gupta,East,Home Office,2022-01-19
+55,Sai Patel,North,Corporate,2022-03-10
+56,Aadhya Khan,East,Corporate,2022-03-30
+57,Sanjay Patel,North,Home Office,2023-10-08
+58,Ishaan Das,Central,Corporate,2022-07-26
+59,Reyansh Iyer,South,Corporate,2023-11-07
+60,Kiara Reddy,North,Consumer,2022-07-18
